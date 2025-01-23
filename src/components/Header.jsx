@@ -24,13 +24,13 @@ const Header = () => {
 
       <p className="text-center max-w-xl mx-auto mt-6">
         Unleash your creative potential with the power of{" "}
-        <span className="text-blue-500 font-bold">AI!</span> Transform your
+        AI! Transform your
         imagination into stunning visual art within seconds. Simply type your
         idea, and let the magic Unfold before your eyes—bringing your visions to
         life like never before.
       </p>
 
-      <button className="text-white bg-black w-auto mt-6 px-12 py-2 flex items-center gap-4 rounded-full">
+      <button className="text-white bg-black w-auto mt-6 px-12 py-2 flex items-center gap-4 rounded-full hover:scale-105 transition-all duration-500">
         Generate Images
         <GiStarSwirl className="size-9" />
       </button>
