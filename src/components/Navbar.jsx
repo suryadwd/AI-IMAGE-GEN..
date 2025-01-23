@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { MdStars } from "react-icons/md";
 import { CgProfile } from "react-icons/cg";
+import {AppContext} from "../context/AppContext"
 const Navbar = () => {
 
-  const [login, setLogin] = useState(true)
+  const{login} = useContext(AppContext)
 
   return (
     <div className="border-2 flex items-center justify-between">
