@@ -12,6 +12,7 @@ const Home = () => {
     <Description />
     <Testi />
     <Generate />
+    
     </div>
   )
 }
