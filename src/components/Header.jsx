@@ -12,12 +12,12 @@ const Header = () => {
 
   return (
     <div className="mt-2 flex flex-col justify-center items-center">
-      <div className="text-stone-600 inline-flex text-center gap-2 bg-white px-9 py-1 rounded-full border border-neutral-700">
-        <p className="text-xs mt-[.8%]">TEXT TO IMAGE CONVERSION! </p>
+      <div className=" mt-2 text-stone-600 inline-flex text-center gap-2 bg-white px-9 py-1 rounded-full border border-neutral-700">
+        <p className="text-xs mt-[.9%]">TEXT TO IMAGE CONVERSION! </p>
         <FaStar className="size-5" />
       </div>
 
-      <h1 className="text-8xl font-semibold max-w-[850px] mx-auto mt-12 text-center">
+      <h1 className="text-8xl font-semibold max-w-[850px] mx-auto mt-10 text-center">
         Turn any text to <span className="text-blue-500">image</span>, in
         seconds.
       </h1>

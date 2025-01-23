@@ -8,7 +8,7 @@ const Navbar = () => {
   const{login} = useContext(AppContext)
 
   return (
-    <div className="border-2 flex items-center justify-between">
+    <div className="flex items-center justify-between">
       <Link to="/"><img
        src="nav.png"
         alt=""
