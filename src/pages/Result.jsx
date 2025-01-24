@@ -29,7 +29,7 @@ const Result = () => {
       </div>
       
     {
-      !load &&   <form onSubmit={handelOnSubmit} className="flex w-full max-w-xl  border-4 mt-4  rounded-full bg-neutral-500">
+      !load &&   <form onSubmit={handelOnSubmit} className="flex w-full max-w-xl  border-4 mt-7  rounded-full bg-neutral-500">
       
       
       <input value={input} onChange={(e) => setInput(e.target.value)} type="text" placeholder="Describe what you want to generate"
@@ -52,3 +52,7 @@ const Result = () => {
 };
 
 export default Result;
+
+//2 24
+
+
