@@ -23,6 +23,7 @@ const Buy = () => {
   ];
 
   const {login} = useContext(AppContext)
+  const {show, setShow} = useContext(AppContext)
 
   return (
     <div className="min-h-[60vh] text-center mt-4  ">
@@ -38,7 +39,7 @@ const Buy = () => {
             <p className="mt-2 mb-1 font-semibold ">{item.id}</p>
             <p className="text-lg">{item.desc}</p>
             <p className="mt-4"><span className="text-3xl font-medium">${item.price} </span>/ {item.credits} credits</p>
-            <button className=" px-12 py-1 mt-5 text-white bg-gray-800 rounded-md">{login ? "Purchase" : "Get Started"}</button>
+            <button  onClick={() => setShow(true)} className=" px-12 py-1 mt-5 text-white bg-gray-800 rounded-md" >{login ? "Purchase" : "Get Started"}</button>
           </div>
         ))}
       </div>
