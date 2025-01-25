@@ -1,0 +1,30 @@
+# Node.js
+node_modules/
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Dependency directories
+bower_components/
+
+# Build output
+dist/
+build/
+
+# System files
+.DS_Store
+Thumbs.db
+
+# .env file
+.env
+
+# IDE or Editor files
+.vscode/
+.idea/
+
+# OS-specific files
+*.swp
