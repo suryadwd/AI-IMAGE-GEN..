@@ -73,7 +73,7 @@ export const balance = async (req, res) => {
 
     try {
     
-      const userId = req.user.id
+      const userId = req.user
       const user = await User.findById(userId)
   
       return res.status(200).json({success:true, user})
