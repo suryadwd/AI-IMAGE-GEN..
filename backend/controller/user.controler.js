@@ -45,8 +45,6 @@ export const login = async (req, res) => {
 
     if(!email||!password) return res.status(400).json({success:false, message:"All fields are required"})
 
-    if(password.length < 6 ||!password ) return res.status(400).json({success:false, message:"Passwors must be  greater then 6 character"})
-
     const existingUser = await User.findOne({email})  
 
     if(!existingUser) return res.status(400).json({success:false, message:"User does not exist"})
@@ -76,12 +74,24 @@ export const balance = async (req, res) => {
       const userId = req.user
       const user = await User.findById(userId)
   
-      return res.status(200).json({success:true, user})
+      return res.status(200).json({ a:user.balance})
 
     } catch (error) {
       console.log(error)
       return res.status(500).json({success:false, message:"error in login handler"})
     }
 
+}
+
+export const logout = async(req, res) => {
+  try {
+    res
+    .cookie("jwtToken", "", { maxAge: 0 })
+    .status(200)
+    .json({ success: true, message: "User logged Out" });
+  } catch (error) {
+    console.log(error)
+    return res.status(500).json({success:false, message:"error in logout handler"})
+  }
 }
 
