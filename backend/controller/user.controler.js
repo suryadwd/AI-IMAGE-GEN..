@@ -68,3 +68,20 @@ export const login = async (req, res) => {
 
 }
 
+
+export const balance = async (req, res) => {
+
+    try {
+    
+      const userId = req.user.id
+      const user = await User.findById(userId)
+  
+      return res.status(200).json({success:true, user})
+
+    } catch (error) {
+      console.log(error)
+      return res.status(500).json({success:false, message:"error in login handler"})
+    }
+
+}
+

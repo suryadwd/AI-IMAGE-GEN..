@@ -1,12 +1,13 @@
 import express from "express"
 const app = express()
+import cookieParser from 'cookie-parser';
 import cors from "cors"
 import 'dotenv/config'
 import { dbConnect } from "./Config/db.js"
 import userRouter from "./routes/userRoute.js"
 app.use(express.json())
 app.use(cors())
-
+app.use(cookieParser());
 app.use("/api/user",userRouter)
 
 app.listen(process.env.PORT, () => {
