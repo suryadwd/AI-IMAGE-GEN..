@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { motion } from "framer-motion";
 
 const Result = () => {
 
@@ -18,7 +19,14 @@ const Result = () => {
   }
 
   return (
-    <div className="flex flex-col items-center">
+    <motion.div 
+    
+    initial = {{opacity:0.4, y:100}}
+    transition={{duration:1}}
+    whileInView={{opacity:1, y:0}}
+    viewport={{once:true}}
+    
+    className="flex flex-col items-center">
       <div className="mt-11">
         <img
           src={image}
@@ -47,7 +55,7 @@ const Result = () => {
       <a href={image} download className="bg-zinc-900 px-10 py-3 rounded-full cursor-pointer">Download</a>
     </div>
      }
-    </div>
+    </motion.div>
   );
 };
 

@@ -2,7 +2,10 @@ import React from "react";
 import { IoEye } from "react-icons/io5";
 import { FaMagic } from "react-icons/fa";
 import { MdDownloadForOffline } from "react-icons/md";
+import { motion } from "framer-motion";
+
 const Steps = () => {
+
   const data = [
     {
       title: "Describe Your Vision",
@@ -25,7 +28,16 @@ const Steps = () => {
   ];
 
   return (
-    <div >
+    <motion.div 
+      
+    initial = {{opacity:0.4, y:100}}
+    transition={{duration:1}}
+    whileInView={{opacity:1, y:0}}
+    viewport={{once:true}}
+    >
+
+
+
       <h1 className="text-3xl font-semibold mb-2 mt-10 ml-[40%] ">
         Wants to know, How it works
       </h1>
@@ -49,7 +61,7 @@ const Steps = () => {
   ))}
 </div>
 
-    </div>
+    </motion.div>
   );
 };
 

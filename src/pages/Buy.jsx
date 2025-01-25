@@ -1,5 +1,7 @@
 import React, { useContext } from "react";
 import {AppContext} from "../context/AppContext"
+import { motion } from "framer-motion";
+
 const Buy = () => {
   const data = [
     {
@@ -26,7 +28,12 @@ const Buy = () => {
   const {show, setShow} = useContext(AppContext)
 
   return (
-    <div className="min-h-[60vh] text-center mt-4  ">
+    <motion.div 
+    initial = {{opacity:0.4, y:100}}
+    transition={{duration:1}}
+    whileInView={{opacity:1, y:0}}
+    viewport={{once:true}}
+    className="min-h-[60vh] text-center mt-4  ">
       <button className="border border-gray-500 px-10 py-2 rounded-full mb-6">
         Our Plans
       </button>
@@ -43,7 +50,7 @@ const Buy = () => {
           </div>
         ))}
       </div>
-    </div>
+    </motion.div>
   );
 };
 

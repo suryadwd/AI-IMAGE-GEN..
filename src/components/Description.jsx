@@ -1,8 +1,18 @@
 import React from 'react'
+import { motion } from "framer-motion";
 
 const Description = () => {
+
+  
+  
+
   return (
-    <div className='flex flex-col items-center justify-center my-20 p-6'>
+    <motion.div 
+    initial = {{opacity:0.4, y:100}}
+    transition={{duration:1}}
+    whileInView={{opacity:1, y:0}}
+    viewport={{once:true}}
+    className='flex flex-col items-center justify-center my-20 p-6'>
       <h1 className='text-3xl font-semibold'>Create AI images through your prompts</h1>
       <p className='text-gray-600 mb-7 mt-2'>Turn your imagination into visuals</p>
 
@@ -16,7 +26,7 @@ const Description = () => {
       </div>
       </div>
 
-    </div>
+    </motion.div>
   )
 }
 

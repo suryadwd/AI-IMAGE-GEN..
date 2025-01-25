@@ -12,8 +12,11 @@ const Login = () => {
   const {show, setShow} = useContext(AppContext)
 
   useEffect(() => {
-    document.body.style.overflow = 'hidden';
-  })
+   document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = 'visible';
+    };
+  },[show])
 
   return (
     <div className="absolute top-0 left-0 right-0 bottom-0 z-10 backdrop-blur-sm bg-black/20 flex justify-center items-center">
