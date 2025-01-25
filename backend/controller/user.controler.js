@@ -59,7 +59,7 @@ export const login = async (req, res) => {
 
     genTokenCookie(payload, res)
 
-    return res.status(200).json({success:true,message:"Login", newUser})
+    return res.status(200).json({success:true,message:"Login", existingUser})
 
   } catch (error) {
     console.log(error)
