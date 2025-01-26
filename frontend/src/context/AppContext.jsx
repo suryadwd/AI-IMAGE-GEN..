@@ -6,7 +6,6 @@ const AppContextProvider = (props) => {
   const [login, setLogin] = useState(false);
   const [show, setShow] = useState(false)
   const [currentUser, setCurrentUser] = useState(null);
- 
   const value = {
     login, setLogin,
     show, setShow,currentUser,setCurrentUser

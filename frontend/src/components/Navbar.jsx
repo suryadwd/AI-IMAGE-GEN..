@@ -7,11 +7,8 @@ import toast from 'react-hot-toast';
 import axios from "axios"
 
 const Navbar = () => {
-
-  const{login,setLogin} = useContext(AppContext)
-  const {show, setShow} = useContext(AppContext)
-  const {setCurrentUser,currentUser} = useContext(AppContext)
-  const navigate = useNavigate()
+  const { login, setLogin, show, setShow, setCurrentUser, currentUser } = useContext(AppContext);
+  const navigate = useNavigate();
 
   const handel = async() => {
     try {
@@ -44,8 +41,8 @@ const Navbar = () => {
       </div>
       : 
       <div className="flex items-center justify-between gap-3"> 
-        <button className="flex items-center gap-1  bg-blue-400 px-4 py-1 rounded-lg hover:scale-105 transition-transform duration-300"> <MdStars className="size-5" /> Credits left : {currentUser?.existingUser?.balance}</button>
-        <h1 className="font-semibold text-gray-700">Hi, {currentUser?.existingUser?.name}</h1>
+        <button className="flex items-center gap-1  bg-blue-400 px-4 py-1 rounded-lg hover:scale-105 transition-transform duration-300"> <MdStars className="size-5" /> Credits left : {currentUser?.user?.balance}</button>
+        <h1 className="font-semibold text-gray-700">Hi, {currentUser?.user?.name}</h1>
         <div className="relative group ">
           <div ><CgProfile className="size-7" /> </div>
           <div className="absolute hidden group-hover:block top-0 -right-5 z-10 to-black rounded pt-11" >

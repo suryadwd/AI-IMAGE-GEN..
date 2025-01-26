@@ -27,7 +27,7 @@ export const register = async (req, res) => {
 
     genTokenCookie(payload, res)
 
-    return res.status(201).json({success:true,message:"user created"})
+    return res.status(201).json({success:true,message:"user created", user:newUser})
 
   } catch (error) {
     console.log(error)
@@ -57,7 +57,7 @@ export const login = async (req, res) => {
 
     genTokenCookie(payload, res)
 
-    return res.status(200).json({success:true,message:"Login", existingUser})
+    return res.status(200).json({success:true,message:"Login", user:existingUser})
 
   } catch (error) {
     console.log(error)
@@ -86,7 +86,7 @@ export const balance = async (req, res) => {
 export const logout = async(req, res) => {
   try {
     res
-    .cookie("jwtToken", "", { maxAge: 0 })
+    .cookie("jwt", "", { maxAge: 0 })
     .status(200)
     .json({ success: true, message: "User logged Out" });
   } catch (error) {

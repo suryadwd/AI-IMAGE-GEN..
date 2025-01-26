@@ -1,21 +1,47 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { motion } from "framer-motion";
+import toast from 'react-hot-toast';
+import axios from "axios"
+import { useNavigate } from "react-router-dom";
+import { AppContext } from "../context/AppContext";
 
 const Result = () => {
 
   const [image, setImage] = useState("resultImg.gif")
   const [load, setLoad] = useState(false)
-  const [input, setInput] = useState("")
+  const [prompt, setPrompt] = useState("")
+  const navigate = useNavigate(); 
+
+  const {currentUser, setCurrentUser} = useContext(AppContext)
 
   const handelOnSubmit =  async (e) => {
-
     e.preventDefault()
+    
+    try {      
+      const res = await axios.post('http://localhost:7000/api/image/generateImage', { prompt }, {
+        withCredentials: true, 
+      });
+      if(res.data.success){
+       setImage(res.data.resultImage)
+       setLoad(true)
+        if(currentUser.user.balance === 0){
+          navigate("/buy")
+        } else {
+          setCurrentUser({
+            ...currentUser,
+            user: {
+              ...currentUser.user,
+              balance: currentUser.user.balance - 1
+            }
+          });
+        }
+      }
+    } catch (error) {
+      console.log(error)
+      toast.error(error.response?.data?.message )
+    }
 
-    console.log(input)
-
-    setInput("")
-
-
+    setPrompt("")
   }
 
   return (
@@ -40,7 +66,7 @@ const Result = () => {
       !load &&   <form onSubmit={handelOnSubmit} className="flex w-full max-w-xl  border-4 mt-7  rounded-full bg-neutral-500">
       
       
-      <input value={input} onChange={(e) => setInput(e.target.value)} type="text" placeholder="Describe what you want to generate"
+      <input value={prompt} onChange={(e) => setPrompt(e.target.value)} type="text" placeholder="Describe what you want to generate"
       className="flex-1 bg-transparent outline-none ml-8 px-8 py-5 text-xl "
       />
       <button type="submit" className="bg-zinc-900 px-10 text-white py-3 rounded-full">Generate</button>
@@ -60,7 +86,3 @@ const Result = () => {
 };
 
 export default Result;
-
-//2 24
-
-

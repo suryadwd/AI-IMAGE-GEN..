@@ -15,7 +15,7 @@ const Login = () => {
   const [name, setName] = useState("")
   const [email, setemail] = useState("")
   const [password, setpassword] = useState("")
- 
+  
 
   useEffect(() => {
    document.body.style.overflow = 'hidden';
@@ -31,7 +31,7 @@ const Login = () => {
     try {
       
       if(state === 'Login'){
-        const res  =  await axios.post(`http://localhost:7000/api/user/login`, {email,password})
+        const res  =  await axios.post(`http://localhost:7000/api/user/login`, {email,password}, {  withCredentials: true, })
         if(res.data.success){
           toast.success(res.data.message);
           setCurrentUser(res.data)
@@ -39,9 +39,8 @@ const Login = () => {
           setLogin(true)
         }
       }else  {
-        const res = await axios.post(`http://localhost:7000/api/user/register`, {name,email,password})
+        const res = await axios.post(`http://localhost:7000/api/user/register`, {name,email,password}, {  withCredentials: true, })
         if(res.data.success){
-          console.log(res.data)
           toast.success(res.data.message);
           setLogin(true)
           setCurrentUser(res.data)
