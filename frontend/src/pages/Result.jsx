@@ -14,36 +14,38 @@ const Result = () => {
 
   const {currentUser, setCurrentUser} = useContext(AppContext)
 
-  const handelOnSubmit =  async (e) => {
-    e.preventDefault()
+  const handelOnSubmit = async (e) => {
+    e.preventDefault();
     
     try {      
       const res = await axios.post('http://localhost:7000/api/image/generateImage', { prompt }, {
         withCredentials: true, 
       });
-      if(res.data.success){
-       setImage(res.data.resultImage)
-       setLoad(true)
-        if(currentUser.user.balance === 0){
-          navigate("/buy")
+      if (res.data.success) {
+        setImage(res.data.resultImage);
+        setLoad(true);
+        console.log("Current balance:", currentUser.user.balance);
+        
+        if (res.data.balance <= 0) { 
+          navigate("/buy");
         } else {
           setCurrentUser({
             ...currentUser,
             user: {
               ...currentUser.user,
-              balance: currentUser.user.balance - 1
-            }
+              balance: res.data.balance, // Update balance from the response
+            },
           });
         }
       }
     } catch (error) {
-      console.log(error)
-      toast.error(error.response?.data?.message )
+      console.log(error);
+      toast.error(error.response?.data?.message);
     }
-
-    setPrompt("")
-  }
-
+  
+    setPrompt("");
+  };
+  
   return (
     <motion.div 
     
