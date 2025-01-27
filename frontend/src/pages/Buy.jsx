@@ -3,6 +3,8 @@ import { AppContext } from "../context/AppContext";
 import { motion } from "framer-motion";
 import Login from "../components/Login"; // Import the Login component
 import axios from "axios";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 
 const Buy = () => {
@@ -27,8 +29,9 @@ const Buy = () => {
     },
   ];
 
-  const { login, setShow } = useContext(AppContext);
+  const { login, setShow ,currentUser, setCurrentUser } = useContext(AppContext);
 
+  const navigate = useNavigate();
 
   const initPay = async (order) => {
     const options = {
@@ -38,9 +41,32 @@ const Buy = () => {
       name:"Credit amount",
       description: "Credits amount for you",  
       order_id: order.id,
-      handler:async (response) => { 
-        console.log(response)
+      handler: async ({ razorpay_payment_id, razorpay_order_id, razorpay_signature }) => {
+        try {
+         
+          const res = await axios.post(
+            "http://localhost:7000/api/user/verify-pay",
+            { razorpay_order_id, razorpay_payment_id, razorpay_signature },
+            { withCredentials: true }
+          );
+      
+          if (res.data.success) {
+            toast.success("Credit Added");
+            // Update currentUser state with the new balance
+            setCurrentUser({
+              ...currentUser,
+              user: {
+                ...currentUser.user,
+                balance: currentUser.user.balance + parseInt(res.data.message.split(": ")[1]), // Extract and add the new credits
+              },
+            });
+            navigate("/");
+          }
+        } catch (error) {
+          console.log("Error verifying payment:", error);
+        }
       }
+      
     }
 
     const rzp = new window.Razorpay(options)
@@ -51,7 +77,7 @@ const Buy = () => {
 
   const paymentRazorpay = async (planId) => {
 
-    console.log("click")
+    console.log("pay 5")
 
     try {
       if (!login) {

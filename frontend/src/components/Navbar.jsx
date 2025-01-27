@@ -41,7 +41,7 @@ const Navbar = () => {
       </div>
       : 
       <div className="flex items-center justify-between gap-3"> 
-        <button className="flex items-center gap-1  bg-blue-400 px-4 py-1 rounded-lg hover:scale-105 transition-transform duration-300"> <MdStars className="size-5" /> Credits left : {currentUser?.user?.balance - 1}</button>
+        <button className="flex items-center gap-1  bg-blue-400 px-4 py-1 rounded-lg hover:scale-105 transition-transform duration-300"> <MdStars className="size-5" /> Credits left : {currentUser?.user?.balance}</button>
         <h1 className="font-semibold text-gray-700">Hi, {currentUser?.user?.name}</h1>
         <div className="relative group ">
           <div ><CgProfile className="size-7" /> </div>
