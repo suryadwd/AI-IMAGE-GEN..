@@ -1,6 +1,9 @@
 import React, { useContext } from "react";
-import {AppContext} from "../context/AppContext"
+import { AppContext } from "../context/AppContext";
 import { motion } from "framer-motion";
+import Login from "../components/Login"; // Import the Login component
+import axios from "axios";
+
 
 const Buy = () => {
   const data = [
@@ -24,16 +27,57 @@ const Buy = () => {
     },
   ];
 
-  const {login} = useContext(AppContext)
-  const {show, setShow} = useContext(AppContext)
+  const { login, setShow } = useContext(AppContext);
+
+
+  const initPay = async (order) => {
+    const options = {
+      key: "rzp_test_TsPgXNRXVx6anD",
+      amount: order.amount,
+      currency: "INR",  
+      name:"Credit amount",
+      description: "Credits amount for you",  
+      order_id: order.id,
+      handler:async (response) => { 
+        console.log(response)
+      }
+    }
+
+    const rzp = new window.Razorpay(options)
+    rzp.open()    
+
+  }
+
+
+  const paymentRazorpay = async (planId) => {
+
+    console.log("click")
+
+    try {
+      if (!login) {
+        setShow(true);
+      } 
+      
+      const res = await axios.post("http://localhost:7000/api/user/pay", { planId },{
+        withCredentials: true,
+      });
+
+      if(res.data.success){
+        initPay(res.data.order)
+      }
+    } catch (error) {
+      toast.error(error.response.data.message);
+    }
+  };
 
   return (
-    <motion.div 
-    initial = {{opacity:0.4, y:100}}
-    transition={{duration:1}}
-    whileInView={{opacity:1, y:0}}
-    viewport={{once:true}}
-    className="min-h-[60vh] text-center mt-4  ">
+    <motion.div
+      initial={{ opacity: 0.4, y: 100 }}
+      transition={{ duration: 1 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      className="min-h-[60vh] text-center mt-4"
+    >
       <button className="border border-gray-500 px-10 py-2 rounded-full mb-6">
         Our Plans
       </button>
@@ -41,15 +85,28 @@ const Buy = () => {
 
       <div className="flex flex-wrap justify-center gap-6 text-left">
         {data.map((item, index) => (
-          <div key={index} className="bg-white drop-shadow-lg border rounded-lg py-10 px-8 text-gray-500 hover:scale-105 transition-all duration-500" >
+          <div
+            key={index}
+            className="bg-white drop-shadow-lg border rounded-lg py-10 px-8 text-gray-500 hover:scale-105 transition-all duration-500"
+          >
             <img src="nav.png" alt="" className="w-32 p-2 mb-5" />
             <p className="mt-2 mb-1 font-semibold ">{item.id}</p>
             <p className="text-lg">{item.desc}</p>
-            <p className="mt-4"><span className="text-3xl font-medium">${item.price} </span>/ {item.credits} credits</p>
-            <button  onClick={() => setShow(true)} className=" px-12 py-1 mt-5 text-white bg-gray-800 rounded-md" >{login ? "Purchase" : "Get Started"}</button>
+            <p className="mt-4">
+              <span className="text-3xl font-medium">${item.price} </span>/{" "}
+              {item.credits} credits
+            </p>
+            <button
+              onClick={() => paymentRazorpay(item.id)}
+              className="px-12 py-1 mt-5 text-white bg-gray-800 rounded-md"
+            >
+              {login ? "Purchase" : "Get Started"}
+            </button>
           </div>
         ))}
       </div>
+
+      {!login && <Login />} {/* Conditionally render the Login component */}
     </motion.div>
   );
 };
